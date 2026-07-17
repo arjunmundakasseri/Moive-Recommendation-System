@@ -16,7 +16,10 @@ def get_recommendations(title, cosine_sim=cosine_sim):
     sim_scores = sim_scores[1:11]  # Get top 10 similar movies
     movie_indices = [i[0] for i in sim_scores]
     return movies[['title', 'movie_id']].iloc[movie_indices]
-
+recommendations = get_recommendations(
+    selected_movie,
+    cosine_sim
+)
 
 
 
