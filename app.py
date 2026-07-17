@@ -55,6 +55,12 @@ def fetch_poster(movie_id):
         print(e)
         return PLACEHOLDER
 
+import os
+import urllib.request
+
+if not os.path.exists("movie_data.pkl"):
+    urllib.request.urlretrieve("https://drive.google.com/file/d/1zIQ0eHuebxMZ4h5jHqQKqB0IttAxOK1G/view?usp=drive_link", "movie_data.pkl")
+
 # Streamlit UI
 st.title("Movie Recommendation System")
 
