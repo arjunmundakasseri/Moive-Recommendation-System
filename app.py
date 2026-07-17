@@ -4,17 +4,35 @@ import requests
 import pickle
 import os
 import urllib.request
+import os
+import pickle
+import gdown
 
-# Load the processed data and similarity matrix
-if not os.path.exists("movie_data.pkl"):
-    urllib.request.urlretrieve("https://drive.google.com/file/d/1zIQ0eHuebxMZ4h5jHqQKqB0IttAxOK1G/view?usp=sharing", "movie_data.pkl")
+FILE_ID = "1zIQ0eHuebxMZ4h5jHqQKqB0IttAxOK1G"
+OUTPUT = "movie_data.pkl"
 
-def get_recommendations(title, cosine_sim=cosine_sim):
+if not os.path.exists(OUTPUT):
+    url = f"https://drive.google.com/uc?id={FILE_ID}"
+    gdown.download(url, OUTPUT, quiet=False)
+
+with open(OUTPUT, "rb") as f:
+    movies, cosine_sim = pickle.load(f)
+
+def get_recommendations(title):
     idx = movies[movies['title'] == title].index[0]
+
     sim_scores = list(enumerate(cosine_sim[idx]))
-    sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
-    sim_scores = sim_scores[1:11]  # Get top 10 similar movies
+
+    sim_scores = sorted(
+        sim_scores,
+        key=lambda x: x[1],
+        reverse=True
+    )
+
+    sim_scores = sim_scores[1:11]
+
     movie_indices = [i[0] for i in sim_scores]
+
     return movies[['title', 'movie_id']].iloc[movie_indices]
 
 
