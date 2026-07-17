@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import requests
 import pickle
+import os
+import urllib.request
 
 # Load the processed data and similarity matrix
 if not os.path.exists("movie_data.pkl"):
