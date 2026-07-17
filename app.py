@@ -8,7 +8,7 @@ import os
 import urllib.request
 
 if not os.path.exists("movie_data.pkl"):
-    urllib.request.urlretrieve("https://drive.google.com/file/d/1zIQ0eHuebxMZ4h5jHqQKqB0IttAxOK1G/view?usp=drive_link", "movie_data.pkl")
+    urllib.request.urlretrieve("https://drive.google.com/file/d/1zIQ0eHuebxMZ4h5jHqQKqB0IttAxOK1G/view?usp=sharing", "movie_data.pkl")
 def get_recommendations(title, cosine_sim=cosine_sim):
     idx = movies[movies['title'] == title].index[0]
     sim_scores = list(enumerate(cosine_sim[idx]))
